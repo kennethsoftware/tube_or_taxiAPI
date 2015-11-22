@@ -36,9 +36,9 @@ app.get('/uber', function(req, res) {
   });
 });
 
-app.get('/tfl', function(req, res) {
+app.get('/citymapper', function(req, res) {
   res.header({'Access-Control-Allow-Origin': '*'});
-  request.get('https://api.tfl.gov.uk/Journey/JourneyResults/'+req.param('Start')+'/to/'+req.param('End')+'?nationalSearch=False&timeIs=Departing&journeyPreference=LeastTime&walkingSpeed=Average&cyclePreference=None&alternativeCycle=False&alternativeWalking=True&applyHtmlMarkup=False&useMultiModalCall=True&app_id=b63e1be9&app_key=3c6f5a154ed564849b6b04beb6a0de5b', function(error, response, body) {
+  request.get('https://staging-developer.citymapper.com/api/1/traveltime/?startcoord='+req.param('StartLat')+'%2C'+req.param('StartLong')+'&endcoord='+req.param('EndLat')+'%2C'+req.param('EndLong')+'&time_type=arrival&key=3c3ad40b188f5f3886d72ed7e13bfb26', function(error, response, body) {
     var data = JSON.parse(body)
     res.json(data);
   });
