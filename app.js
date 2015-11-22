@@ -36,6 +36,14 @@ app.get('/uber', function(req, res) {
   });
 });
 
+app.get('/tfl', function(req, res) {
+  res.header({'Access-Control-Allow-Origin': '*'});
+  request.get('https://api.tfl.gov.uk/Journey/JourneyResults/'+req.param('StartLong')+','+req.param('StartLat')+'/to/'+req.param('EndLong')+','+req.param('EndLat')+'?nationalSearch=False&timeIs=Departing&journeyPreference=LeastTime&walkingSpeed=Average&cyclePreference=None&alternativeCycle=False&alternativeWalking=True&applyHtmlMarkup=False&useMultiModalCall=True&app_id=b63e1be9&app_key=3c6f5a154ed564849b6b04beb6a0de5b', function(error, response, body) {
+    var data = JSON.parse(body)
+    res.json(data);
+  });
+});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
