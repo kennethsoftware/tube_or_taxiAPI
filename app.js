@@ -30,7 +30,7 @@ app.get('/', function(req, res, next) {
 
 app.get('/uber', function(req, res) {
   res.header({'Access-Control-Allow-Origin': '*'});
-  request.get('https://api.uber.com/v1/products?server_token=RjSC2fS4joKvbtWjMkXrVwGs5rf4Blp0i97q-Kiu&latitude=51.528490&longitude=-0.084728', function(error, response, body) {
+  request.get('https://api.uber.com/v1/estimates/price?server_token=RjSC2fS4joKvbtWjMkXrVwGs5rf4Blp0i97q-Kiu&start_latitude=' +req.param('StartLat')+ '&start_longitude=' +req.param('StartLong')+ '&end_latitude=' +req.param('EndLat')+ '&end_longitude='+req.param('EndLong'), function(error, response, body) {
     var data = JSON.parse(body)
     res.json(data);
   });
@@ -67,7 +67,7 @@ app.use(function(err, req, res, next) {
   });
 });
 
-var server = app.listen(9876, function() {
+var server = app.listen(3000, function() {
 var host = server.address().address;
 var port = server.address().port;
   console.log('Example app listening at http://%s:%s',host,port);
